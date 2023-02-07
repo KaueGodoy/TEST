@@ -15,7 +15,7 @@ public class PlatformerPlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer= GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()

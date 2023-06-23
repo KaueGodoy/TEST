@@ -8,6 +8,11 @@ TagManager:
   - Background
   - Foreground
   - Enemy
+  - PlayerOne
+  - PlayerTwo
+  - BorderHorizontal
+  - BorderPlayerOne
+  - BorderPlayerTwo
   layers:
   - Default
   - TransparentFX

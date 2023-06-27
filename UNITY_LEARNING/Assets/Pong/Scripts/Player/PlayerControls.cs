@@ -35,6 +35,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""76095a17-150c-4ed1-89aa-e0012a520b5a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpeedDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""7775bdaa-e8f5-49f6-be49-e9f0b76918a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -90,6 +108,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""352f1b51-8fb1-49c7-833d-2eadfac074e7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59d4bfa2-345c-4bae-ad16-af84ebd53a65"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -190,6 +230,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_SpeedUp = m_Player.FindAction("SpeedUp", throwIfNotFound: true);
+        m_Player_SpeedDown = m_Player.FindAction("SpeedDown", throwIfNotFound: true);
         // PlayerTwo
         m_PlayerTwo = asset.FindActionMap("PlayerTwo", throwIfNotFound: true);
         m_PlayerTwo_Movement = m_PlayerTwo.FindAction("Movement", throwIfNotFound: true);
@@ -258,11 +300,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_SpeedUp;
+    private readonly InputAction m_Player_SpeedDown;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @SpeedUp => m_Wrapper.m_Player_SpeedUp;
+        public InputAction @SpeedDown => m_Wrapper.m_Player_SpeedDown;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -275,6 +321,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @SpeedUp.started += instance.OnSpeedUp;
+            @SpeedUp.performed += instance.OnSpeedUp;
+            @SpeedUp.canceled += instance.OnSpeedUp;
+            @SpeedDown.started += instance.OnSpeedDown;
+            @SpeedDown.performed += instance.OnSpeedDown;
+            @SpeedDown.canceled += instance.OnSpeedDown;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -282,6 +334,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @SpeedUp.started -= instance.OnSpeedUp;
+            @SpeedUp.performed -= instance.OnSpeedUp;
+            @SpeedUp.canceled -= instance.OnSpeedUp;
+            @SpeedDown.started -= instance.OnSpeedDown;
+            @SpeedDown.performed -= instance.OnSpeedDown;
+            @SpeedDown.canceled -= instance.OnSpeedDown;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -394,6 +452,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnSpeedUp(InputAction.CallbackContext context);
+        void OnSpeedDown(InputAction.CallbackContext context);
     }
     public interface IPlayerTwoActions
     {

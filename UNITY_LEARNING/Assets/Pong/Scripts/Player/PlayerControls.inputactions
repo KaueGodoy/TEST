@@ -13,6 +13,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SpeedUp",
+                    "type": "Button",
+                    "id": "76095a17-150c-4ed1-89aa-e0012a520b5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpeedDown",
+                    "type": "Button",
+                    "id": "7775bdaa-e8f5-49f6-be49-e9f0b76918a1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -68,6 +86,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "352f1b51-8fb1-49c7-833d-2eadfac074e7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59d4bfa2-345c-4bae-ad16-af84ebd53a65",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

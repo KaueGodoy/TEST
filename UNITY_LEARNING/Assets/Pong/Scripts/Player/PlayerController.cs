@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.Controls;
 
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private float moveY;
     private float moveYTwo;
+
+    private Vector2 direction;
 
     private Rigidbody2D rb1;
     private Rigidbody2D rb2;
@@ -50,18 +53,23 @@ public class PlayerController : MonoBehaviour
 
         moveY = playerControls.Player.Movement.ReadValue<float>();
         moveYTwo = playerControls.PlayerTwo.Movement.ReadValue<float>();
+
+        direction = new Vector2(rb1.velocity.x, moveY).normalized;
+
     }
 
     private void FixedUpdate()
     {
-        Move(moveY);
+        Move();
         MoveTwo(moveYTwo);
     }
 
-    private void Move(float input)
+    private void Move()
     {
         // MUST ADD TIMEDELTA - MAKING IT SLOW NOW IDK
-        rb1.velocity = new Vector2(rb1.velocity.x, input * moveSpeed);
+        // normalize ???    
+
+        rb1.velocity = direction * moveSpeed;
     }
 
     private void MoveTwo(float input)
